@@ -10,6 +10,7 @@ import model.Comentario;
 public class ComentarioDAO {
 	public int criar(Comentario comentario) {
 		String sqlInsert = "INSERT INTO comentario(nome, texto, fk_noticia_id) VALUES (?, ?, ?)";
+		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 			stm.setString(1, comentario.getNome());
@@ -32,6 +33,7 @@ public class ComentarioDAO {
 
 	public void atualizar(Comentario comentario) {
 		String sqlUpdate = "UPDATE comentario SET nome=?, texto=?, fk_noticia_id=? WHERE id=?";
+		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			stm.setString(1, comentario.getNome());
@@ -46,6 +48,7 @@ public class ComentarioDAO {
 
 	public void excluir(int id) {
 		String sqlDelete = "DELETE FROM comentario WHERE id = ?";
+		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
 			stm.setInt(1, id);
@@ -58,20 +61,20 @@ public class ComentarioDAO {
 	public Comentario carregar(int id) {
 		Comentario comentario = new Comentario();
 		comentario.setId(id);
-		String sqlSelect = "SELECT nome, fone, email FROM comentario WHERE comentario.id = ?";
+		String sqlSelect = "SELECT nome, texto FROM comentario WHERE comentario.fk_noticia_id = ?";
+		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
-			stm.setInt(1, comentario.getId());
+			stm.setInt(1, comentario.getFkNoticiaId());
 			try (ResultSet rs = stm.executeQuery();) {
 				if (rs.next()) {
-					stm.setString(1, comentario.getNome());
-					stm.setString(2, comentario.getTexto());
-					stm.setInt(3, comentario.getFkNoticiaId());
+					comentario.setNome(rs.getString("nome"));
+					comentario.setTexto(rs.getString("texto"));
+					
 				} else {
 					comentario.setId(-1);
 					comentario.setNome(null);
 					comentario.setTexto(null);
-					comentario.setFkNoticiaId(-1);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
