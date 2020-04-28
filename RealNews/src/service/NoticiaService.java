@@ -1,6 +1,9 @@
 package service;
 
 import model.Noticia;
+
+import java.util.ArrayList;
+
 import dao.NoticiaDAO;
 
 
@@ -23,4 +26,7 @@ public class NoticiaService {
 		return dao.carregar(id);
 	}
 
+	public ArrayList <Noticia> buscarNoticias(){
+		return dao.buscarNoticias();
+	}
 }

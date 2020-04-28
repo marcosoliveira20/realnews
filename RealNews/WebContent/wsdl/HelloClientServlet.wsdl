@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://controller" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://controller" xmlns:intf="http://controller" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://controller" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getServletInfo">
+    <complexType/>
+   </element>
+   <element name="getServletInfoResponse">
+    <complexType>
+     <sequence>
+      <element name="getServletInfoReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getServletInfoResponse">
+
+      <wsdl:part element="impl:getServletInfoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getServletInfoRequest">
+
+      <wsdl:part element="impl:getServletInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="HelloClientServlet">
+
+      <wsdl:operation name="getServletInfo">
+
+         <wsdl:input message="impl:getServletInfoRequest" name="getServletInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getServletInfoResponse" name="getServletInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="HelloClientServletSoapBinding" type="impl:HelloClientServlet">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getServletInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getServletInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getServletInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="HelloClientServletService">
+
+      <wsdl:port binding="impl:HelloClientServletSoapBinding" name="HelloClientServlet">
+
+         <wsdlsoap:address location="http://localhost:8080/RealNews/services/HelloClientServlet"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

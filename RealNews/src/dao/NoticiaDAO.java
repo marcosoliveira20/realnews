@@ -86,7 +86,6 @@ public class NoticiaDAO {
 	
 	public ArrayList <Noticia> buscarNoticias() {
 		ArrayList <Noticia> lista = new ArrayList<>();
-		//noticia.setId(id);
 		Noticia noticia = null;
 		String sqlSelect = "SELECT id, descricao, titulo, texto from noticia";
 		try (Connection conn = ConnectionFactory.obtemConexao();
