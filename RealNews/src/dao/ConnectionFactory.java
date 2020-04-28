@@ -13,7 +13,6 @@ public class ConnectionFactory {
 		}
 	}
 	
-	// Obtém conexão com o banco de dados
 	public static Connection obtemConexao() throws SQLException {
 		return DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/portal_realnews?useTimezone=true&serverTimezone=America/Sao_Paulo&user=root&password=1234");

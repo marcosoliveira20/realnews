@@ -10,7 +10,6 @@ import model.Comentario;
 public class ComentarioDAO {
 	public int criar(Comentario comentario) {
 		String sqlInsert = "INSERT INTO comentario(nome, texto, fk_noticia_id) VALUES (?, ?, ?)";
-		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 			stm.setString(1, comentario.getNome());
@@ -33,7 +32,6 @@ public class ComentarioDAO {
 
 	public void atualizar(Comentario comentario) {
 		String sqlUpdate = "UPDATE comentario SET nome=?, texto=?, fk_noticia_id=? WHERE id=?";
-		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			stm.setString(1, comentario.getNome());
@@ -48,7 +46,6 @@ public class ComentarioDAO {
 
 	public void excluir(int id) {
 		String sqlDelete = "DELETE FROM comentario WHERE id = ?";
-		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
 			stm.setInt(1, id);
@@ -62,7 +59,6 @@ public class ComentarioDAO {
 		Comentario comentario = new Comentario();
 		comentario.setId(id);
 		String sqlSelect = "SELECT nome, texto FROM comentario WHERE comentario.fk_noticia_id = ?";
-		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, comentario.getFkNoticiaId());
