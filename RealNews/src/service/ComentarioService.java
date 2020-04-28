@@ -22,5 +22,4 @@ public class ComentarioService {
 	public Comentario carregar(int id){
 		return dao.carregar(id);
 	}
-
 }
