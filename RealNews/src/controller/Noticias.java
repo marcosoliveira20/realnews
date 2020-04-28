@@ -40,20 +40,16 @@ public class Noticias extends HttpServlet implements Servlet {
 		ArrayList<Noticia> lista = new ArrayList<>();
 		PrintWriter out = response.getWriter();
 		lista = a.buscarNoticias();
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("Served ssssss: ").append(request.getContextPath());
 		response.setContentType("text/html");
-		out = response.getWriter();
-		// out.println("<HTML><HEAD><TITLE>Hello World!</TITLE>" + "</HEAD><BODY>Hello
+		response.getWriter().append("<p>" + "  AAAAAA");
 		for (int i = 0; i < lista.size(); i++) {
-			out.println("<p>" + lista.get(i).getTitulo() + "</p>");
+			response.getWriter().append("<p>" + "  ddd dd" + lista.get(i).getTitulo() + "</p>");
 		}
-
-		out.println("</body></html>");
-
+		response.getWriter().append("</body></html>");
 		// World!</BODY></HTML>");
-		//out.println("<html><head><title>Professor Cadastrado</title></head><body>");
+		// out.println("<html><head><title>Professor Cadastrado</title></head><body>");
 
-		
 		out.close();
 
 	}

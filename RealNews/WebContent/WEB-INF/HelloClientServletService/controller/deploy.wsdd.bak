@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
 
   <!-- Services from HelloClientServletService WSDL service -->
 
@@ -7,10 +17,10 @@
       <parameter name="wsdlServiceElement" value="HelloClientServletService"/>
       <parameter name="schemaQualified" value="http://controller"/>
       <parameter name="wsdlServicePort" value="HelloClientServlet"/>
-      <parameter name="className" value="controller.HelloClientServlet"/>
+      <parameter name="className" value="controller.HelloClientServletSoapBindingImpl"/>
       <parameter name="wsdlPortType" value="HelloClientServlet"/>
       <parameter name="typeMappingVersion" value="1.2"/>
-      <operation xmlns:operNS="http://controller" xmlns:retNS="http://controller" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getServletInfo" qname="operNS:getServletInfo" returnQName="retNS:getServletInfoReturn" returnType="rtns:string" soapAction="">
+      <operation name="getServletInfo" qname="operNS:getServletInfo" xmlns:operNS="http://controller" returnQName="retNS:getServletInfoReturn" xmlns:retNS="http://controller" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
       </operation>
       <parameter name="allowedMethods" value="getServletInfo"/>
 
