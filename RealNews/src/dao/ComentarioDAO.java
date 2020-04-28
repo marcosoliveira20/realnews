@@ -56,6 +56,33 @@ public class ComentarioDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public Comentario carregar(int id) {
+		Comentario comentario = new Comentario();
+		comentario.setId(id);
+		String sqlSelect = "SELECT nome, titulo, fk_noticia_id FROM noticia WHERE noticia.id = ?";
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+			stm.setInt(1, comentario.getId());
+			try (ResultSet rs = stm.executeQuery();) {
+				if (rs.next()) {
+					comentario.setNome(rs.getString("nome"));
+					comentario.setTexto(rs.getString("titulo"));
+					comentario.setFkNoticiaId(rs.getInt("fk_noticia_id"));
+				} else {
+					comentario.setId(-1);
+					comentario.setNome(null);
+					comentario.setTexto(null);
+					comentario.setFkNoticiaId(-1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return comentario;
+	}
 
 	public ArrayList <Comentario> buscarComentario() {
 		ArrayList <Comentario> lista = new ArrayList<>();
