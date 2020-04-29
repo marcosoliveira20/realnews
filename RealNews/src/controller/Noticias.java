@@ -20,48 +20,57 @@ import model.Noticia;
 @WebServlet("/Noticias")
 public class Noticias extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Noticias() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
+	protected void service(HttpServletRequest request,
+            HttpServletResponse response)
+            throws IOException, ServletException {
+	// TODO Auto-generated method stub
 		NoticiaService a = new NoticiaService();
 		ArrayList<Noticia> lista = new ArrayList<>();
 		PrintWriter out = response.getWriter();
 		lista = a.buscarNoticias();
-		response.getWriter().append("Served ssssss: ").append(request.getContextPath());
+		//response.getWriter().append("Served ssssss: ").append(request.getContextPath());
 		response.setContentType("text/html");
-		response.getWriter().append("<p>" + "  AAAAAA");
-		for (int i = 0; i < lista.size(); i++) {
-			response.getWriter().append("<p>" + "  ddd dd" + lista.get(i).getTitulo() + "</p>");
+		response.getWriter().append("<head>");
+		
+		response.getWriter().append("<meta charset=" + "utf-8>");
+	
+		response.getWriter().append("<body>");
+		response.getWriter().append("\r\n" + 
+				"<style>\r\n" + 
+				"table, th, td {\r\n" + 
+				"  border: 1px solid black;\r\n" + 
+				"}\r\n" + 
+				"</style>");
+		response.getWriter().append("</head>");
+		
+		response.getWriter().append("<body>");
+				
+		
+		// cada noticia recebe propriedades como botao, link e descricao
+		for (Noticia noticia : a.buscarNoticias()) {
+			out.print(
+					"<button>"
+						+ "<a href='./Leitura.do?id=" +noticia.getId() +"'>" + noticia.getTitulo() +"</a>"
+						+ "<p>" +noticia.getDescricao() +"</p>"
+					+ "</button>"
+			);
 		}
+
+		response.getWriter().append("<hr>");
+		response.getWriter().append(""+
+				
+				"			<form action=\"ManterNoticia.do\" method=\"get\">\r\n" + 
+				"				Titulo: <input type=\"text\" name=\"titulo\"><br>\r\n" + 
+				"				Descrição: <input type=\"text\" name=\"descricao\"><br>\r\n" + 
+				"				Texto: <input type=\"text\" name=\"texto\"><br>\r\n" + 
+				"			<input type=\"submit\">\r\n" + 
+				"		</form>");
+		
 		response.getWriter().append("</body></html>");
 		// World!</BODY></HTML>");
 		// out.println("<html><head><title>Professor Cadastrado</title></head><body>");
 
 		out.close();
-
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }
