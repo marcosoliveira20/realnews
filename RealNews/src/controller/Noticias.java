@@ -48,38 +48,51 @@ public class Noticias extends HttpServlet implements Servlet {
                             +"<div id='area-principal'>"
                                 +"<div id='area-postagens'>");
                             	for (Noticia noticia : a.buscarNoticias()) {
-                            		out.println("</div>" + "<div class='postagem'>"
-                                        +"<h2><a href='./Ler.do?id="+noticia.getId() +"'>" + noticia.getTitulo()+"</a></h2><br>"
-                                        +"<p>" +noticia.getDescricao() +"</p>"
-                                        +"</div>"
+                            		out.println(
+                            				
+                            			 "<div class='postagem'>"
+	                                        +"<h2><a href='./Ler.do?id="+noticia.getId() +"'>" + noticia.getTitulo()+"</a></h2><br>"
+	                                        +"<p>" +noticia.getDescricao() +"<a href='./Ler.do?id="+noticia.getId() +"'>" +"Ler mais..." +"</a></p>"
+	                                        +"</div>"
                                         +"<br>");
                             	}
                             	
                             	out.println("</div>"
                                 +"<br>"
-                                +"<a href=''></a>"
+                                +"		<div id=\"area-lateral\">\r\n" + 
+                                "			<h3>Menu Lateral</h3>\r\n" + 
+                                "			<div class=\"conteudo-lateral\">\r\n" + 
+                                "				<h4>VejÃ¡ o que pode fazer</h4>\r\n" + 
+                                "				<br><p><a href='./CriarNoticias.do'>Crie Sua Noticia.</a>\r\n" + 
+                                "					do</p>\r\n" + 
+                                "\r\n" + 
+                                "			</div>\r\n" + 
+                                "		<br>\r\n" + 
+                                "			<div class=\"conteudo-lateral\">\r\n" + 
+                                "			<h4>Lista de noticias</h4>\r\n" );
+                            	Noticia noticia =new Noticia();
+                            	ArrayList <Noticia> b = new ArrayList<Noticia>();
+                            	b = a.buscarNoticias();
+                            	for (int i=b.size() -1; i>b.size()-3; i--) {
+                            		noticia = b.get(i);
+                            		if (noticia.getTitulo().length()> 30){
+                            		out.println("<a href='./Ler.do?id="+noticia.getId() +"'>" + noticia.getTitulo().substring(0, noticia.getTitulo().length()-20)+"</a><br><br>");
+                            	}
+                            		else {
+                            			out.println("<a href='./Ler.do?id="+noticia.getId() +"'>" + noticia.getTitulo()+"</a><br>");
+                                    	}
+                            		}
+                            	
+                                out.println(
+                                "			</div>\r\n" + 
+                                "\r\n" + 
+                                "\r\n" + 
+                                "		</div>"
                                 
                 
                               
                 );
 		
-		out.println("" +
-
-				"			<form action=\"ManterNoticia.do\" method=\"get\">\r\n"
-				+ "<table>"
-				+ "			<tr>	"
-				+ "					<td>Titulo:</td><td><input type='text' name=\"titulo\"  placeholder=\"Escreva o título para notícia\"> </td> \r\n"
-				+			"</tr>"			
-				+ "			<tr>	"
-				+ "				<td>Descrição:</td> <td><textarea rows='6' name=\"descricao\" placeholder=\"Escreva uma breve descrição da notícia\"></textarea></td>\r\n"
-				+ "			</tr>	"
-				+ "			<tr>	"
-				+ "				<td>Texto:</td> <td><textarea  placeholder=\"Escreva a notícia\" rows='10' name=\"texto\"></textarea></td>\r\n"
-			
-				+ "			</tr>	"
-				+ "</table>"
-				+ "<input type=\"submit\">\r\n" + "		</form>"
-				+               "<div id='rodape'>Todos os Direitos reservados!</div>");
 
 		response.getWriter().append("</body></html>");
 
