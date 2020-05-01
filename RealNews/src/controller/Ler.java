@@ -54,12 +54,14 @@ public class Ler extends HttpServlet {
 
 							+"<hr>"
 							
-							+"<div class='divNoticia'>"
-								+"<h3>"+noticia.getTitulo()+"</h3>"
-								+"<p>"+noticia.getDescricao()+"</p>"
+							+"<div id='area-principal' \"style=\" background-color: white;\""
+				            +"<div id='area-postagens'>"
+							+"<div class=\"postagem>\""
+
+								+"<h2>"+noticia.getTitulo()+"</h2><br>"
+								+"<p>"+noticia.getDescricao()+"</p><br>"
 								+"<p>"+noticia.getTexto()+"</p>"
-							+"</div>"
-							
+
 							+"<hr>"
 							
 							+"<h3>Comentarios</h3>"
@@ -75,7 +77,7 @@ public class Ler extends HttpServlet {
 		out.println(
 						"<hr>"
 							
-						+"<h3 >Escreva seu coment·rio</h3>"
+						+"<h3 >Escreva seu coment√°rio</h3>"
 						
 						+"<form  action='./EscreverComentario.do' method='post'>"
 			
@@ -91,7 +93,7 @@ public class Ler extends HttpServlet {
 								+ "<label>Comentario: </label><"
 							+ "/td>"
 							+"<td>"
-								+"<textarea name='comentario' rows='5' placeholder='Escreva seu coment·rio'></textarea>"
+								+"<textarea name='comentario' cols='24' rows='5' placeholder='Escreva seu coment√°rio'></textarea>"
 							+"</td>"
 							+ "</table>"
 							+"<input  type=submit >"
@@ -116,6 +118,9 @@ public class Ler extends HttpServlet {
 							+ "</td>"
 							+ "<tr>"
 						+ "</table>"
+						+"</div>"
+						+"</div>"
+						+"</div>"
 					+"</body>"
 				+"</html>"
 				);
