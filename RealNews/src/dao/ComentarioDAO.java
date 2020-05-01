@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import model.Comentario;
 import model.Noticia;
+import service.NoticiaService;
 
 public class ComentarioDAO {
 	public int criar(Comentario comentario) {
@@ -60,14 +61,14 @@ public class ComentarioDAO {
 	public Comentario carregar(int id) {
 		Comentario comentario = new Comentario();
 		comentario.setId(id);
-		String sqlSelect = "SELECT nome, titulo, fk_noticia_id FROM noticia WHERE noticia.id = ?";
+		String sqlSelect = "SELECT nome, texto, fk_noticia_id FROM noticia WHERE comentario.id = ?";
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, comentario.getId());
 			try (ResultSet rs = stm.executeQuery();) {
 				if (rs.next()) {
 					comentario.setNome(rs.getString("nome"));
-					comentario.setTexto(rs.getString("titulo"));
+					comentario.setTexto(rs.getString("texto"));
 					comentario.setFkNoticiaId(rs.getInt("fk_noticia_id"));
 				} else {
 					comentario.setId(-1);
@@ -83,34 +84,44 @@ public class ComentarioDAO {
 		}
 		return comentario;
 	}
+	/**
+	 * Listar Comentarios
+	 * @return ArrayList<Comentario> lista
+	 * @throws Exception
+	 */
 
-	public ArrayList <Comentario> buscarComentario() {
-		ArrayList <Comentario> lista = new ArrayList<>();
-		Comentario comentario = null;
-		String sqlSelect = "SELECT id, nome, texto, fk_noticia_id from comentario";
-		try (Connection conn = ConnectionFactory.obtemConexao();
-				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
-			
-			try (ResultSet rs = stm.executeQuery();) {
-				while(rs.next())
-					comentario = new Comentario();
-					if (rs.next()) {
-						comentario.setId(Integer.parseInt(rs.getString("id")));
-						comentario.setNome(rs.getString("nome"));
-						comentario.setTexto(rs.getString("texto"));
-						comentario.setFkNoticiaId(rs.getInt("fk_noticia_id"));
-						lista.add(comentario);
-					} else {
-						comentario.setId(-1);
-						comentario.setNome(null);
-						comentario.setTexto(null);
-						comentario.setFkNoticiaId(-1);
-					}
-			}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	public ArrayList<Comentario> buscarComentario(int id) throws Exception {
+		ArrayList<Comentario> lista = new ArrayList<>();
+		String select = "SELECT * FROM comentario WHERE fk_noticia_id ="+id+" order by id desc";
 		
-		return lista;
+		Connection conectar = ConnectionFactory.obtemConexao();
+		PreparedStatement pst = conectar.prepareStatement(select);
+		ResultSet resultado = pst.executeQuery();
+		
+		while(resultado.next()) {
+			Comentario comentario = new Comentario();
+			NoticiaService noticia = new NoticiaService();
+			comentario.setId(resultado.getInt("id"));
+			comentario.setNome(resultado.getString("nome"));
+			comentario.setTexto(resultado.getString("texto"));
+			comentario.setNoticia(noticia.carregar(resultado.getInt("fk_noticia_id")));
+			
+			lista.add(comentario);
+		}
+			return lista;
+		}
+		
+		
+	
+	public void apagarComentarios(int fkid) {
+		String deletar = "DELETE FROM comentario WHERE fk_noticia_id = ?";
+			
+		try (Connection conectar = ConnectionFactory.obtemConexao();
+				PreparedStatement pst = conectar.prepareStatement(deletar)) {
+			pst.setInt(1, fkid);
+			pst.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
