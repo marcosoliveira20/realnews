@@ -8,7 +8,7 @@ public class Comentario implements Serializable {
 	private String nome;
 	private String texto;
 	private int fkNoticiaId;
-
+	private Noticia noticia;
 	public Comentario() {
 	}
 
@@ -54,6 +54,14 @@ public class Comentario implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	public Noticia getNoticia() {
+		return noticia;
+	}
+
+	public void setNoticia(Noticia noticia) {
+		this.noticia = noticia;
 	}
 
 	@Override
