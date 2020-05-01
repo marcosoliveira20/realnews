@@ -1,6 +1,10 @@
 package service;
 
 import model.Comentario;
+import model.Noticia;
+
+import java.util.ArrayList;
+
 import dao.ComentarioDAO;
 
 
@@ -21,5 +25,22 @@ public class ComentarioService {
 	
 	public Comentario carregar(int id){
 		return dao.carregar(id);
+	
 	}
+	/**
+	 * @param 
+	 * @return ArrayList<Comentario>
+	 */
+	public ArrayList<Comentario> listar(int id) {
+		try {
+			return dao.buscarComentario(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public void apagarComentarios(int fkid){
+		dao.apagarComentarios(fkid);
+	}
+	
 }
